@@ -1,0 +1,27 @@
+{
+  "name": "renderertoy",
+  "version": "1.0.0",
+  "description": "A simple 2d software rasterization for learning",
+  "main": "rollup.config.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zuluoaaa/rendererToy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zuluoaaa/rendererToy/issues"
+  },
+  "homepage": "https://github.com/zuluoaaa/rendererToy#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "rollup": "^2.48.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  }
+}
