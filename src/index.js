@@ -1,1 +1,3 @@
-console.log("hello world")
+const fs = require("fs");
+import {test} from "./core"
+console.log(test(),"hello world")
