@@ -134,7 +134,8 @@ function drawTriangle2(v1,v2,v3,imageData,light,zBuffer,textures,verColors){
         }
     }
 
-
+    
+    let textureVers = convertTextureVer(verColors,textures);
     for(let x = minXY[0];x<maxXY[0];x++){
         for(let y = minXY[1];y<maxXY[1];y++){
 
@@ -151,7 +152,9 @@ function drawTriangle2(v1,v2,v3,imageData,light,zBuffer,textures,verColors){
             }
 
             let index = Number(x + y * imageData.width);
-            let textureVal = getTextureVal(verColors,textures,bc,light);
+           
+            //console.log(textureVers,x,y)
+            let textureVal = getTextureVal(textureVers,bc,textures,light);
             if(typeof zBuffer[index] === "undefined" ||  zBuffer[index] < z){
                 zBuffer[index] = z;
 
@@ -161,7 +164,7 @@ function drawTriangle2(v1,v2,v3,imageData,light,zBuffer,textures,verColors){
 
         }
     }
-
+   
 }
 
 function insideTriangle(a,b,c,P){

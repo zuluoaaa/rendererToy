@@ -21,10 +21,20 @@ function loadTexture(img,width,height){
 
 }
 
-function getTextureVal(verColors,textures,bc,light){
-    let textureVal = [];
-    //
+function convertTextureVer(verColors,textures){
+    const newVers = [];
+    for(let i=0;i<3;i++){
+        newVers[i] = [
+            Number((1-verColors[i][0]) * textures.width),
+            Number((1-verColors[i][1]) * textures.height)
+        ]
+    }
+    return newVers
+}
 
+function getColorByThreeVer(verColors,textures,bc,light){
+    let textureVal = [];
+  
     let v0Color =  getPxColor(verColors[0][0],verColors[0][1],textures);
     let v1Color =  getPxColor(verColors[1][0],verColors[1][1],textures);
     let v2Color =  getPxColor(verColors[2][0],verColors[2][1],textures);
@@ -38,6 +48,29 @@ function getTextureVal(verColors,textures,bc,light){
 
     textureVal.push(255);
     return textureVal;
+}
+
+function getTextureVal(textureVers,bc,textures,light){
+  let colors = [];
+  let x=0,y=0;
+  
+  for(let i=0;i<3;i++){
+    x += textureVers[i][0] * bc[i];
+    y += textureVers[i][1] * bc[i];
+  }
+  x = parseInt(x);
+  y = parseInt(y);
+  let key = Math.floor(y * textures.width + x) * 4;
+  
+  let data = textures.data;
+  colors = [
+      Math.round(data[key]*light),
+      Math.round(data[key+1]*light),
+      Math.round(data[key+2]*light),
+      data[key+3]
+  ];
+ 
+  return colors;
 }
 
 function getPxColor(x,y,imageData){
