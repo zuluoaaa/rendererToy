@@ -105,7 +105,9 @@
             let v1t = objDataArray.texture[face[4]];
             let v2t = objDataArray.texture[face[5]];
 
-
+            let v0n = objDataArray.normalVers[face[6]];
+            let v1n = objDataArray.normalVers[face[7]];
+            let v2n = objDataArray.normalVers[face[8]];
 
             let v0x =  Math.round((-v0[0]+1 ) * width / 2);
             let v0y =  Math.round((-v0[1]+1 ) * height / 2 );
@@ -123,14 +125,17 @@
             let n = crossProduct(verSub(v2,v0),verSub(v1,v0));
             n = normalize(n);
 
+            drawTriangle2({x:v0x,y:v0y,z:v0z},{x:v1x,y:v1y,z:v1z},{x:v2x,y:v2y,z:v2z},imageData,
+                [dot(v0n,lightVer),dot(v1n,lightVer),dot(v2n,lightVer)],zBuffer,textures,[v0t,v1t,v2t]);
+/*
+            let n = crossProduct(verSub(v2,v0),verSub(v1,v0));
+            n = normalize(n);
             let light = dot(n,lightVer);
             if(light>0){
-
                 drawTriangle2({x:v0x,y:v0y,z:v0z},{x:v1x,y:v1y,z:v1z},{x:v2x,y:v2y,z:v2z},imageData,
                     light,zBuffer,textures,[v0t,v1t,v2t]);
-
-
             }
+*/
 
         }
     }

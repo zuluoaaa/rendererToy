@@ -50,13 +50,14 @@ function getColorByThreeVer(verColors,textures,bc,light){
     return textureVal;
 }
 
-function getTextureVal(textureVers,bc,textures,light){
+function getTextureVal(textureVers,bc,textures,lights){
   let colors = [];
   let x=0,y=0;
-  
+
+
   for(let i=0;i<3;i++){
-    x += textureVers[i][0] * bc[i];
-    y += textureVers[i][1] * bc[i];
+    x += textureVers[i][0] * bc[i] ;
+    y += textureVers[i][1] * bc[i] ;
   }
   x = parseInt(x);
   y = parseInt(y);
@@ -64,9 +65,9 @@ function getTextureVal(textureVers,bc,textures,light){
   
   let data = textures.data;
   colors = [
-      Math.round(data[key]*light),
-      Math.round(data[key+1]*light),
-      Math.round(data[key+2]*light),
+      Math.round(data[key]),
+      Math.round(data[key+1]),
+      Math.round(data[key+2]),
       data[key+3]
   ];
  

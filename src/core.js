@@ -110,7 +110,7 @@ function drawTriangle(v1,v2,v3,imageData,colors){
 
 }
 
-function drawTriangle2(v1,v2,v3,imageData,light,zBuffer,textures,verColors){
+function drawTriangle2(v1,v2,v3,imageData,lights,zBuffer,textures,verColors){
 
     let w = imageData.width;
     let h = imageData.height;
@@ -154,7 +154,7 @@ function drawTriangle2(v1,v2,v3,imageData,light,zBuffer,textures,verColors){
             let index = Number(x + y * imageData.width);
            
             //console.log(textureVers,x,y)
-            let textureVal = getTextureVal(textureVers,bc,textures,light);
+            let textureVal = getTextureVal(textureVers,bc,textures,lights);
             if(typeof zBuffer[index] === "undefined" ||  zBuffer[index] < z){
                 zBuffer[index] = z;
 
