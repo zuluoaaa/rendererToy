@@ -54,20 +54,20 @@ function getTextureVal(textureVers,bc,textures,lights){
   let colors = [];
   let x=0,y=0;
 
-
   for(let i=0;i<3;i++){
     x += textureVers[i][0] * bc[i] ;
     y += textureVers[i][1] * bc[i] ;
   }
+  let intensity = (bc[0] * lights[0]  +  bc[1] * lights[1]  +  bc[2] * lights[2] );
   x = parseInt(x);
   y = parseInt(y);
   let key = Math.floor(y * textures.width + x) * 4;
   
   let data = textures.data;
   colors = [
-      Math.round(data[key]),
-      Math.round(data[key+1]),
-      Math.round(data[key+2]),
+      Math.round(data[key] * intensity),
+      Math.round(data[key+1]) * intensity,
+      Math.round(data[key+2] * intensity),
       data[key+3]
   ];
  

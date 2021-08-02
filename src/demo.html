@@ -90,7 +90,7 @@
 
 
     async function drawModel3(imageData,width,height){
-        const lightVer = [0,0,-1];
+        const lightVer = [1,1,-1];
         const zBuffer = new Array(width*height);
         const textures = await loadTexture(document.getElementById("textureImg"),width,height);
         console.log("wtf",textures)
@@ -121,9 +121,6 @@
             let v2y =  Math.round((-v2[1]+1) * height / 2);
             let v2z =  Math.round((-v2[2]+1) * height / 2);
 
-
-            let n = crossProduct(verSub(v2,v0),verSub(v1,v0));
-            n = normalize(n);
 
             drawTriangle2({x:v0x,y:v0y,z:v0z},{x:v1x,y:v1y,z:v1z},{x:v2x,y:v2y,z:v2z},imageData,
                 [dot(v0n,lightVer),dot(v1n,lightVer),dot(v2n,lightVer)],zBuffer,textures,[v0t,v1t,v2t]);
