@@ -1,3 +1,5 @@
+const DEPTH = 255;
+
 function drawLine(x1,y1,x2,y2,imageData,r,g,b,a){
 
     let swap = false;
@@ -148,14 +150,14 @@ function drawTriangle2(v1,v2,v3,imageData,lights,zBuffer,textures,verColors){
 
             let z = 0;
             for(let i=0;i<3;i++){
-                z -= arr[i].z * bc[i];
+                z += arr[i].z * bc[i];
             }
 
             let index = Number(x + y * imageData.width);
            
             //console.log(textureVers,x,y)
             let textureVal = getTextureVal(textureVers,bc,textures,lights);
-            if(typeof zBuffer[index] === "undefined" ||  zBuffer[index] < z){
+            if(typeof zBuffer[index] === "undefined" ||  zBuffer[index] > z){
                 zBuffer[index] = z;
 
                 setPxColor(x,y,imageData,...textureVal);
@@ -213,4 +215,15 @@ function setPxColor(x,y,imageData,r,g,b,a=255){
     data[index+1] = g;
     data[index+2] = b;
     data[index+3] = a;
+}
+
+
+function viewport(x,y,w,h){
+    console.log(x,y,w,h,"x,y,w,h")
+    return [
+        w/2,0,0,x+w/2,
+        0,h/2,0,y+h/2,
+        0,0,DEPTH/2,DEPTH/2,
+        0,0,0,1
+    ]
 }

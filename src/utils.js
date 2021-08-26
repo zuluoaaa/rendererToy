@@ -66,7 +66,7 @@ function getTextureVal(textureVers,bc,textures,lights){
   let data = textures.data;
   colors = [
       Math.round(data[key] * intensity),
-      Math.round(data[key+1]) * intensity,
+      Math.round(data[key+1] * intensity),
       Math.round(data[key+2] * intensity),
       data[key+3]
   ];

@@ -90,10 +90,21 @@
 
 
     async function drawModel3(imageData,width,height){
-        const lightVer = [1,1,-1];
+        const lightVer = [0,-0.5,-1];
         const zBuffer = new Array(width*height);
         const textures = await loadTexture(document.getElementById("textureImg"),width,height);
-        console.log("wtf",textures)
+
+        const vp = viewport(width/8,height/8,width,height);
+        const cameraZ = 30;
+        const projection = [
+            1,0,0,0,
+            0,1,0,0,
+            0,0,1,0,
+            0,0,1/cameraZ,1,
+        ];
+
+        const m1 = matrixMul4(vp,projection);
+
         for(let i=0;i<objDataArray.faces.length;i++){
             let face = objDataArray.faces[i];
 
@@ -109,7 +120,13 @@
             let v1n = objDataArray.normalVers[face[7]];
             let v2n = objDataArray.normalVers[face[8]];
 
-            let v0x =  Math.round((-v0[0]+1 ) * width / 2);
+
+            let screenCoords1  = m42v(matrixMul4(m1,v2m4(v0)));
+            let screenCoords2  = m42v(matrixMul4(m1,v2m4(v1)));
+            let screenCoords3  = m42v(matrixMul4(m1,v2m4(v2)));
+
+
+    /*        let v0x =  Math.round((-v0[0]+1 ) * width / 2);
             let v0y =  Math.round((-v0[1]+1 ) * height / 2 );
             let v0z =  Math.round((-v0[2]+1 ) * height / 2 );
 
@@ -122,7 +139,9 @@
             let v2z =  Math.round((-v2[2]+1) * height / 2);
 
 
-            drawTriangle2({x:v0x,y:v0y,z:v0z},{x:v1x,y:v1y,z:v1z},{x:v2x,y:v2y,z:v2z},imageData,
+*/
+
+            drawTriangle2(screenCoords1,screenCoords2,screenCoords3,imageData,
                 [dot(v0n,lightVer),dot(v1n,lightVer),dot(v2n,lightVer)],zBuffer,textures,[v0t,v1t,v2t]);
 /*
             let n = crossProduct(verSub(v2,v0),verSub(v1,v0));
